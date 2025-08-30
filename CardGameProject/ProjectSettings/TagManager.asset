@@ -8,6 +8,8 @@ TagManager:
   - PlayerArea
   - EnemyArea
   - Enemy
+  - PlayerSoldier
+  - EnemySoldier
   layers:
   - Default
   - TransparentFX

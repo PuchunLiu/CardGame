@@ -86,7 +86,7 @@ public class SoldierCardBase : CardBase
     public string attackMode;
     public string attackAttribute;
     public string actionMode;
-    public GameObject soldier1Prefab;
+    public GameObject soldierPrefab;
 
     private void Awake()
     {
@@ -97,22 +97,29 @@ public class SoldierCardBase : CardBase
         OnAGIChanged += SetAGIText;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void Update()
     {
-        if (collision.CompareTag("BattleField"))
+        base.Update();
+        if (battleField.OverlapPoint(transform.position))
         {
-            GameObject obj = Instantiate(soldier1Prefab, transform.position, transform.rotation, battleField);
-            Soldier1 soldierScript = obj.GetComponent<Soldier1>();
-            soldierScript.cardPrefab = gameObject;
-            soldierScript.isDrag = true;
-            soldierScript.cost = cost;
-            soldierScript.ATK = ATK;
-            soldierScript.DEF = DEF;
-            soldierScript.HP = HP;
-            soldierScript.AGI = AGI;
-            soldierScript.attackRange = attackRange;
-            gameObject.SetActive(false);
+            IntoField();
         }
+
+    }
+
+    public virtual void IntoField()
+    {
+        GameObject obj = Instantiate(soldierPrefab, transform.position, transform.rotation, battleField.transform);
+        SoldierBase soldierScript = obj.GetComponent<SoldierBase>();
+        soldierScript.cardPrefab = gameObject;
+        soldierScript.isDrag = true;
+        soldierScript.cost = cost;
+        soldierScript.ATK = ATK;
+        soldierScript.DEF = DEF;
+        soldierScript.HP = HP;
+        soldierScript.AGI = AGI;
+        soldierScript.attackRange = attackRange;
+        gameObject.SetActive(false);
     }
 
     public void SetCostText(int cost)

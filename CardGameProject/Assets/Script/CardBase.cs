@@ -11,14 +11,14 @@ public class CardBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Vector3 lastPos;
     public Vector3 lastScale;
     public bool isDrag = false;
-    public Transform battleField;
+    public Collider2D battleField;
     public Text effectText;
     public Text Name;
     public virtual void Start()
     {
         lastPos = transform.position;
         lastScale = transform.localScale;
-        battleField = GameObject.FindWithTag("BattleField").transform;
+        battleField = GameObject.FindWithTag("BattleField").GetComponent<Collider2D>();
         currentSiblingIndex = transform.GetSiblingIndex();
     }
 

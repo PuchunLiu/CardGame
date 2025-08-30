@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SoldierBase : MonoBehaviour
+public class SoldierBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Text ATKText;
     public Text DEFText;
@@ -89,6 +89,11 @@ public class SoldierBase : MonoBehaviour
     public bool isDrag = false;
     public bool canDeploy = false;
     public bool isDeploy = false;
+    public Sprite sprite;
+    public string owner;
+    public bool canRecycle;
+    public Collider2D playerArea;
+    public Collider2D enemyArea;
 
     private void Awake()
     {
@@ -97,6 +102,8 @@ public class SoldierBase : MonoBehaviour
         OnHPChanged += SetHPText;
         OnAGIChanged += SetAGIText;
         OnAttackRangeChanged += ChangeAttackRange;
+        playerArea = GameObject.FindWithTag("PlayerArea").GetComponent<Collider2D>();
+        enemyArea = GameObject.FindWithTag("EnemyArea").GetComponent<Collider2D>();
     }
 
     public virtual void Update()
@@ -104,36 +111,22 @@ public class SoldierBase : MonoBehaviour
         if (isDrag)
         {
             transform.position = Input.mousePosition;
+            IsSoldierCanBeDeployed();
         }
         if (Input.GetMouseButtonUp(0))
         {
-            if (!isDeploy)
-            {
-                if (canDeploy && cost <= GameManager.instance.player.coins)
-                {
-                    isDrag = false;
-                    isDeploy = true;
-                    GameManager.instance.player.coins -= cost;
-                    Destroy(cardPrefab);
-                }
-                else
-                {
-                    Destroy(gameObject);
-                    cardPrefab.SetActive(true);
-                    cardPrefab.GetComponent<CardBase>().BackToPos();
-                }
-            }
+            DeploySoldier();
         }
     }
 
-    public virtual void OnTriggerStay2D(Collider2D collision)
+    public virtual void IsSoldierCanBeDeployed()
     {
-        if (collision.CompareTag("PlayerArea"))
+        if (playerArea.OverlapPoint(transform.position))
         {
             soldierImage.color = Color.blue;
             canDeploy = true;
         }
-        else if (collision.CompareTag("EnemyArea"))
+        else if (enemyArea.OverlapPoint(transform.position))
         {
             soldierImage.color = Color.red;
             canDeploy = false;
@@ -172,5 +165,43 @@ public class SoldierBase : MonoBehaviour
     public void ChangeAttackRange(float scale)
     {
         attackRangeTrans.localScale = new Vector3(scale, scale, scale);
+    }
+
+    public virtual void DeploySoldier()
+    {
+        if (!isDeploy)
+        {
+            if (canDeploy && cost <= GameManager.instance.player.coins)
+            {
+
+                Deploy();
+            }
+            else
+            {
+                Destroy(gameObject);
+                cardPrefab.SetActive(true);
+                cardPrefab.GetComponent<CardBase>().BackToPos();
+            }
+        }
+    }
+
+    public virtual void Deploy()
+    {
+        isDrag = false;
+        isDeploy = true;
+        GameManager.instance.player.coins -= cost;
+        soldierImage.color = Color.white;
+        attackRangeTrans.gameObject.SetActive(false);
+        Destroy(cardPrefab);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        attackRangeTrans.gameObject.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        attackRangeTrans.gameObject.SetActive(false);
     }
 }
