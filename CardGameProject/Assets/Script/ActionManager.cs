@@ -35,9 +35,11 @@ public class ActionManager : MonoBehaviour
 
     private int _time;
     private int _additionTime;
+    private int _turn;
 
     public event Action<int> OnTimeChanged;
     public event Action<int> OnAdditonTimeChanged;
+    public event Action<int> OnTurnChanged;
 
     public int time
     {
@@ -64,11 +66,28 @@ public class ActionManager : MonoBehaviour
         }
     }
 
+    public int turn
+    {
+        get => _turn;
+        set
+        {
+            if (_turn != value)
+            {
+                _turn = value;
+                OnTurnChanged?.Invoke(_turn);
+            }
+        }
+    }
+
     public Transform actionContent;
     public GameObject actionPrefab;
     public List<ActionMark> actionList = new List<ActionMark>();
     public bool isActionFinished;
     public float actionActiveTime = 1f;
+    Coroutine additionTimeCoroutine;
+    Coroutine timeCoroutine;
+    public int eachTurnAddTime = 10;
+
     private void Awake()
     {
         Instance = this;
@@ -79,8 +98,8 @@ public class ActionManager : MonoBehaviour
     private void Start()
     {
         time = 20;
-        additionTime = 10;
-        StartCoroutine(CountdownAdditionTimeCoroutine());
+        additionTime = eachTurnAddTime;
+        additionTimeCoroutine = StartCoroutine(CountdownAdditionTimeCoroutine());
     }
 
     IEnumerator CountdownAdditionTimeCoroutine()
@@ -90,7 +109,7 @@ public class ActionManager : MonoBehaviour
             additionTime -= 1;
             yield return new WaitForSeconds(1f);
         }
-
+        additionTimeCoroutine = null;
         OnCountdownAdditionTimeFinished();
     }
 
@@ -101,12 +120,13 @@ public class ActionManager : MonoBehaviour
             time -= 1;  
             yield return new WaitForSeconds(1f);
         }
+        timeCoroutine = null;
         OnCountdownTimeFinished();
     }
 
     void OnCountdownAdditionTimeFinished()
     {
-        StartCoroutine(CountdownTimeCoroutine());
+        timeCoroutine = StartCoroutine(CountdownTimeCoroutine());
     }
 
     void OnCountdownTimeFinished()
@@ -117,6 +137,14 @@ public class ActionManager : MonoBehaviour
     public void FinishOnClick()
     {
         Cursor.visible = false;
+        if(additionTime == 0 && timeCoroutine != null)
+        {
+            StopCoroutine(timeCoroutine);
+        }
+        else if(additionTimeCoroutine != null)
+        {
+            StopCoroutine(additionTimeCoroutine);
+        }
         StartCoroutine(TurnActionActive());
     }
     IEnumerator TurnActionActive()
@@ -136,6 +164,14 @@ public class ActionManager : MonoBehaviour
             }
         }
         Cursor.visible = true;
+        NewTurnStart();
+    }
+
+    public void NewTurnStart()
+    {
+        turn += 1;
+        additionTime += eachTurnAddTime;
+
     }
 
 
@@ -147,6 +183,11 @@ public class ActionManager : MonoBehaviour
     public void SetTimeText(int time)
     {
         timeText.text = "<color=#000000>" + time.ToString() + "</color>";
+    }
+
+    public void SetTurnText(int turn)
+    {
+        turnCountText.text = "Turn" + turn.ToString();
     }
 
     public void AddAction(ActionMark actionMark, bool needRefresh = true)
