@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class Soldier1 : SoldierBase
+public class Soldier4 : SoldierBase
 {
     public GameObject attackAim;
     public float aimDistance;
     public Vector3 aimPointPos;
-    public GameObject attackBox;
     private Vector3 velocity = Vector3.zero;
+    public GameObject weapon;
+    public GameObject attackBox;
     public override void Deploy()
     {
         base.Deploy();
@@ -45,24 +45,22 @@ public class Soldier1 : SoldierBase
     public void TurnAction()
     {
         FindAttackAim();
-        Debug.Log(attackRange);
         if (aimDistance < attackRange)
         {
-            
             StartCoroutine(AttackActive());
         }
         else
         {
-            
             StartCoroutine(PursuitActive());
         }
-        Debug.Log("Soldier1Action");
+        Debug.Log("Soldier2Action");
+
     }
 
     IEnumerator AttackActive()
     {
         attackBox.SetActive(true);
-
+        weapon.SetActive(true);
         // 1. 计算目标方向
         Vector3 direction = (aimPointPos - attackBox.transform.position).normalized;
         // 2. 旋转物体，使物体的正上方朝向目标方向
@@ -74,6 +72,7 @@ public class Soldier1 : SoldierBase
             yield return null;  // 等待下一帧
         }
         Attack();
+        weapon.SetActive(false);
         yield return new WaitForSeconds(0.1f);
         attackBox.SetActive(false);
         attackBox.transform.localPosition = Vector3.zero;

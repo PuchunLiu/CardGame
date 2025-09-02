@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Soldier1 : SoldierBase
+public class Soldier3 : SoldierBase
 {
     public GameObject attackAim;
     public float aimDistance;
@@ -48,12 +48,12 @@ public class Soldier1 : SoldierBase
         Debug.Log(attackRange);
         if (aimDistance < attackRange)
         {
-            
+
             StartCoroutine(AttackActive());
         }
         else
         {
-            
+
             StartCoroutine(PursuitActive());
         }
         Debug.Log("Soldier1Action");

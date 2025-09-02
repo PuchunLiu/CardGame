@@ -1,0 +1,5 @@
+﻿ID,Type,Name,Effect,AttackAttribute,ActionMode,AttackRange,Cost,ATK,DEF,HP,AGI
+1,soldier,士兵,,物理,追击,2,5,5,10,10,5
+2,soldier,弓箭手,,物理,追击,4,5,8,5,10,4
+3,soldier,精锐士兵,,物理,追击,2,10,10,20,15,7
+4,soldier,精锐弓箭手,,物理,追击,6,10,15,10,15,6

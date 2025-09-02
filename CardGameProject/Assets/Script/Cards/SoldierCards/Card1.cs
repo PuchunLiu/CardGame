@@ -7,7 +7,7 @@ public class Card1 : SoldierCardBase
     {
         base.Start();
         cost = 5;
-        ATK = 10;
+        ATK = 5;
         DEF = 10;
         HP = 10;
         AGI = 5;

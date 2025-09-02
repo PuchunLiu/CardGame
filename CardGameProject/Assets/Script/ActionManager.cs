@@ -98,8 +98,7 @@ public class ActionManager : MonoBehaviour
     private void Start()
     {
         time = 20;
-        additionTime = eachTurnAddTime;
-        additionTimeCoroutine = StartCoroutine(CountdownAdditionTimeCoroutine());
+        NewTurnStart();
     }
 
     IEnumerator CountdownAdditionTimeCoroutine()
@@ -136,8 +135,9 @@ public class ActionManager : MonoBehaviour
 
     public void FinishOnClick()
     {
-        Cursor.visible = false;
-        if(additionTime == 0 && timeCoroutine != null)
+        GameManager.instance.BlockClicks();
+        GameManager.instance.embattle = false;
+        if (additionTime == 0 && timeCoroutine != null)
         {
             StopCoroutine(timeCoroutine);
         }
@@ -149,6 +149,7 @@ public class ActionManager : MonoBehaviour
     }
     IEnumerator TurnActionActive()
     {
+        yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < actionList.Count; i++)
         {
             isActionFinished = false;
@@ -163,15 +164,24 @@ public class ActionManager : MonoBehaviour
                 yield return null;
             }
         }
-        Cursor.visible = true;
+        GameManager.instance.UnblockClicks();
         NewTurnStart();
     }
 
     public void NewTurnStart()
     {
         turn += 1;
-        additionTime += eachTurnAddTime;
-
+        if (!GameManager.instance.isSolo)
+        {
+            additionTime = eachTurnAddTime;
+            additionTimeCoroutine = StartCoroutine(CountdownAdditionTimeCoroutine());
+        }
+        else
+        {
+            timeText.text = "¡Þ";
+        }
+        GameManager.instance.player.TurnStart();
+        GameManager.instance.embattle = true;
     }
 
 

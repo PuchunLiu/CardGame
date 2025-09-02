@@ -100,7 +100,7 @@ public class SoldierCardBase : CardBase
     public override void Update()
     {
         base.Update();
-        if (battleField.OverlapPoint(transform.position))
+        if (battleField.OverlapPoint(transform.position) && isDown)
         {
             IntoField();
         }

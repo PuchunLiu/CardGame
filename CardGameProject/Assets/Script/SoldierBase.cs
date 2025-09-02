@@ -115,7 +115,7 @@ public class SoldierBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         if (Input.GetMouseButtonUp(0))
         {
-            DeploySoldier();
+            DeploySoldier("player");
         }
     }
 
@@ -167,21 +167,33 @@ public class SoldierBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         attackRangeTrans.localScale = new Vector3(scale, scale, scale);
     }
 
-    public virtual void DeploySoldier()
+    public virtual void DeploySoldier(string owner)
     {
-        if (!isDeploy)
+        if (owner == "player")
         {
-            if (canDeploy && cost <= GameManager.instance.player.coins)
+            if (!isDeploy)
             {
-
-                Deploy();
+                if (canDeploy && cost <= GameManager.instance.player.coins)
+                {
+                    GameManager.instance.player.coins -= cost;
+                    this.owner = owner;
+                    transform.tag = "PlayerSoldier";
+                    Deploy();
+                    Destroy(cardPrefab);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                    cardPrefab.SetActive(true);
+                    cardPrefab.GetComponent<CardBase>().BackToPos();
+                }
             }
-            else
-            {
-                Destroy(gameObject);
-                cardPrefab.SetActive(true);
-                cardPrefab.GetComponent<CardBase>().BackToPos();
-            }
+        }
+        else if (owner == "enemy")
+        {
+            this.owner = owner;
+            transform.tag = "EnemySoldier";
+            Deploy();
         }
     }
 
@@ -189,10 +201,8 @@ public class SoldierBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         isDrag = false;
         isDeploy = true;
-        GameManager.instance.player.coins -= cost;
         soldierImage.color = Color.white;
         attackRangeTrans.gameObject.SetActive(false);
-        Destroy(cardPrefab);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

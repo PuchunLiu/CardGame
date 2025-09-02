@@ -14,9 +14,10 @@ public class CardBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Collider2D battleField;
     public Text effectText;
     public Text Name;
+    public bool isDown = false;
     public virtual void Start()
     {
-        lastPos = transform.position;
+        //lastPos = transform.position;
         lastScale = transform.localScale;
         battleField = GameObject.FindWithTag("BattleField").GetComponent<Collider2D>();
         currentSiblingIndex = transform.GetSiblingIndex();
@@ -35,30 +36,32 @@ public class CardBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         lastSiblingIndex = currentSiblingIndex;
         transform.SetAsLastSibling();
         transform.localScale = scale;
-        transform.position += new Vector3(0f, upOffset, 0f);
+        transform.localPosition += new Vector3(0f, upOffset, 0f);
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         transform.SetSiblingIndex(lastSiblingIndex);
-        transform.position = lastPos;
+        transform.localPosition = lastPos;
         transform.localScale = lastScale;
     }
 
     public virtual void OnPointerUp(PointerEventData eventData)
     {
+        isDown = false;
         BackToPos();
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
+        isDown = true;
         isDrag = true;
     }
 
     public virtual void BackToPos()
     {
         isDrag = false;
-        transform.position = lastPos;
+        transform.localPosition = lastPos;
         transform.localScale = lastScale;
         transform.SetSiblingIndex(lastSiblingIndex);
     }

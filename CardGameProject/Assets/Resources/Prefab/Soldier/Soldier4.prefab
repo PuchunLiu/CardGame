@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1768679433190182986, guid: b7e5e23842e59b1499066d192217b388, type: 3}
+  m_Sprite: {fileID: 21300226, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -446,7 +446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4885373251318296212, guid: 3049a102e6ff32049a66a9c7767e1836, type: 3}
+  m_Sprite: {fileID: 21300128, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -623,9 +623,10 @@ GameObject:
   - component: {fileID: 4232602043646341155}
   - component: {fileID: 9065289719161985276}
   - component: {fileID: 7340753932801172544}
-  - component: {fileID: 2063671279009418858}
+  - component: {fileID: 3770793848344696867}
+  - component: {fileID: 481980067778649777}
   m_Layer: 5
-  m_Name: Soldier2
+  m_Name: Soldier4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -686,7 +687,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7145198348311737387, guid: 0173a338d70a28640b79016d4e2e0628, type: 3}
+  m_Sprite: {fileID: 21300272, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -723,7 +724,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &2063671279009418858
+--- !u!114 &3770793848344696867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -732,7 +733,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5340220724092966793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e57c041d0013c85408b3c81e91c773f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ecbbac12854fdf45a7870447a30fd1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ATKText: {fileID: 7913236565920638315}
@@ -746,7 +747,7 @@ MonoBehaviour:
   isDrag: 0
   canDeploy: 0
   isDeploy: 0
-  sprite: {fileID: 7145198348311737387, guid: 0173a338d70a28640b79016d4e2e0628, type: 3}
+  sprite: {fileID: 21300272, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   owner: 
   canRecycle: 0
   playerArea: {fileID: 0}
@@ -756,6 +757,42 @@ MonoBehaviour:
   aimPointPos: {x: 0, y: 0, z: 0}
   weapon: {fileID: 619530646216423540}
   attackBox: {fileID: 3648356713692472597}
+--- !u!58 &481980067778649777
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5340220724092966793}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1 &5570643096630453836
 GameObject:
   m_ObjectHideFlags: 0

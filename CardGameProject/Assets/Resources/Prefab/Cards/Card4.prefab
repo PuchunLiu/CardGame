@@ -372,7 +372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7145198348311737387, guid: 0173a338d70a28640b79016d4e2e0628, type: 3}
+  m_Sprite: {fileID: 21300272, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -550,9 +550,9 @@ GameObject:
   - component: {fileID: 5422287391540622705}
   - component: {fileID: 9123778040574435840}
   - component: {fileID: 8416019258842835746}
-  - component: {fileID: 5845121083918484867}
+  - component: {fileID: -341993054506778043}
   m_Layer: 5
-  m_Name: Card2
+  m_Name: Card4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -687,7 +687,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5845121083918484867
+--- !u!114 &-341993054506778043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -696,12 +696,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3412131837464794492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 290d270bba16d244589c6e352521aaf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 34114e2edd8a02049a22b4da67996d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentSiblingIndex: 0
   lastSiblingIndex: 0
-  scale: {x: 1, y: 1, z: 1}
+  scale: {x: 1.2, y: 1.2, z: 1.2}
   upOffset: 150
   lastPos: {x: 0, y: 0, z: 0}
   lastScale: {x: 0, y: 0, z: 0}
@@ -718,7 +718,7 @@ MonoBehaviour:
   attackMode: 
   attackAttribute: 
   actionMode: 
-  soldierPrefab: {fileID: 5340220724092966793, guid: 3a7a0b73bfcf7054586bcc2eb71a6c06, type: 3}
+  soldierPrefab: {fileID: 5340220724092966793, guid: 00e0367e56f02f54290ddc607736eac4, type: 3}
 --- !u!1 &3543490209134331874
 GameObject:
   m_ObjectHideFlags: 0
